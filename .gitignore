@@ -1,3 +1,10 @@
+# Extensionless files
+*
+!/**/
+!*.*
+!Makefile
+!makefile
+
 # Prerequisites
 *.d
 
@@ -50,3 +57,4 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
