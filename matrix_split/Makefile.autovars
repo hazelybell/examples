@@ -1,0 +1,44 @@
+# which compiler to use
+CC = gcc
+
+# compiler flags:
+#	-std=c99	chooses C99 standard
+#	-Wall	turns on a lot of warnings
+#	-ftrapv	errors for signed overflow on addition, subtraction, and multiplication
+#	-ggdb	generate debugging symbols for gdb
+#	-DDEBUG	define the preprocessor macro "DEBUG"
+CFLAGS = -std=c99 -Wall -ftrapv -ggdb -DDEBUG
+
+# link flags:
+#	-lm	lets us use the "m" math library
+LDFLAGS = -lm
+
+# $@ is the output file name. Since this
+# recipe is for building matrix_split,
+# $@ will be matrix_split
+# $^ is the names of all the prerequisites.
+# Since $@ depends on all the .o files, $^ 
+# will be all the .o files.
+matrix_split : matrix_split.o matrix.o matrix_io.o matrix_ops.o debugging.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+# $< is the name of the first prerequisite
+# In this case, matrix.c is listed first,
+# so $< will be matrix.c
+matrix.o : matrix.c matrix.h debugging.h
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+# Notice that this rule has the same recipe as the last rule!
+matrix_io.o : matrix_io.c matrix_io.h matrix.h debugging.h
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+# In fact, all the rules for object files have the same recipe!
+matrix_ops.o : matrix_ops.c matrix_ops.h matrix.h debugging.h
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+debugging.o : debugging.c debugging.h
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+matrix_split.o : matrix_split.c matrix.h matrix_io.h matrix_ops.h debugging.h
+	$(CC) $(CFLAGS) -c -o $@ $<
+

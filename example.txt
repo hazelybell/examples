@@ -1,0 +1,2 @@
+Hello this is standard output! It's mainly used for the actual output of your program. For example, if your program is meant to print a matrix, you'd print the matrix on standard output.
+Hello this is also standard output!

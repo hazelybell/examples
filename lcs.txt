@@ -1,0 +1,20 @@
+example:
+adfasdf
+asfasdf
+
+3 cases (pick the longest!)
+adfasd vs asfasdf (removed 1 letter from first string)
+    LCS would be afasd length 5
+adfasdf vs asfasd (removed 1 letter 
+from second string)
+    LCS would be afasd length 5
+adfasd vs asfasd (removed 1 letter from both) + 1 if the letters i removed were the same
+    LCS would be afasdf length 6
+    
+lcs(m, n)
+    if m or n is 0:
+        return 0
+    return max of
+        lcs(m-1, n)
+        lcs(m, n-1)
+        lcs(m-1, n-1) + 1 string1 character m and string2 character n are the same

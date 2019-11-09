@@ -1,0 +1,43 @@
+# which compiler to use
+CC = gcc
+
+# compiler flags:
+#	-std=c99	chooses C99 standard
+#	-Wall	turns on a lot of warnings
+#	-ftrapv	errors for signed overflow on addition, subtraction, and multiplication
+#	-ggdb	generate debugging symbols for gdb
+#	-DDEBUG	define the preprocessor macro "DEBUG"
+CFLAGS = -std=c99 -Wall -ftrapv -ggdb -DDEBUG
+
+# link flags:
+#	-lm	lets us use the "m" math library
+LDFLAGS = -lm
+
+# The target we want to build
+TARGET=matrix_split
+
+# All of the objects we need to build the TARGET
+OBJS=matrix_split.o matrix.o matrix_io.o matrix_ops.o debugging.o
+
+# A fairly generic version of the target recipe!
+$(TARGET) : $(OBJS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+# Now we give a recipe for how to build any of the .o files, instead of repeating ourselves.
+# This means something ending in .o can be built from something ending in .c from the following recipe!
+%.o : %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+# Now we specify additional dependencies for each .o file.
+# Since these rules don't have recipes, make will use the recipe above to build them.
+# Also, we no longer need to explicitly list the .c file, since it's specified above!
+matrix.o : matrix.h debugging.h
+
+matrix_io.o : matrix_io.h matrix.h debugging.h
+
+matrix_ops.o : matrix_ops.h matrix.h debugging.h
+
+debugging.o : debugging.h
+
+matrix_split.o : matrix.h matrix_io.h matrix_ops.h debugging.h
+

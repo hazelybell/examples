@@ -1,0 +1,4 @@
+Sequence: TGCTCTGACC
+Reversed: CCAGTCTCGT
+LPS length: 5
+CTCTC

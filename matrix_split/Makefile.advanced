@@ -1,0 +1,119 @@
+# which compiler to use
+CC = gcc
+
+# compiler flags:
+#	-std=c99	chooses C99 standard
+#	-Wall	turns on a lot of warnings
+#	-ftrapv	errors for signed overflow on addition, subtraction, and multiplication
+#	-ggdb	generate debugging symbols for gdb
+CFLAGS = -std=c99 -Wall -ftrapv -ggdb3
+
+# link flags:
+#	-lm	lets us use the "m" math library
+LDFLAGS = -lm
+
+# look for all the .c files
+SRCS = $(wildcard *.c)
+
+# make output filenames ending in .o for all the .c files
+OBJS = $(patsubst %.c,%.o,$(SRCS))
+
+# Directory to store the dependencies in
+DEPDIR := .deps
+
+# make dependency filenames ending in .d in the .deps directory for each .c file
+DEPFILES := $(patsubst %.c,$(DEPDIR)/%.d,$(SRCS))
+
+# adds -DDEBUG to the CFLAGS if we invoked make like "make debug"
+DEBUG := $(filter debug,$(MAKECMDGOALS))
+ifeq ($(DEBUG), debug)
+    CFLAGS += -DDEBUG
+endif
+
+# determine if we're cleaning. If we are, we don't need to make the dependency makefiles
+CLEAN := $(filter clean,$(MAKECMDGOALS))
+
+# Flags to pass to GCC for dependency generation:
+#	-MT $*.o makes a rule for blah.o : blah.c
+#	-MM skips headers that came from the operating system
+#	-MP prevents generated makefiles from breaking if a header is deleted
+#	-MF specifies the output makefile
+DEPFLAGS = -MT $*.o -MM -MP -MF $(DEPDIR)/$*.d
+
+# the name of the executable we want to create
+TARGET = matrix_split
+
+# Get a list of inputs we should try our program against
+INPUTS = $(wildcard input*.txt)
+
+# Generate a list of checks for our inputs
+CHECKS = $(patsubst %,check-%,$(INPUTS))
+GDBS = $(patsubst %,gdb-%,$(INPUTS))
+VALGRINDS = $(patsubst %,valgrind-%,$(INPUTS))
+
+
+# the first target in the file is used if no other target is specified!
+default: $(TARGET)
+.PHONY: default
+
+# .PHONY means the target doesn't actually produce a file, e.g. the "debug" target doesn't produce a file called "debug" and "default" doesn't produce a file called "default"
+.PHONY: debug
+debug: $(TARGET)
+
+# This recipe makes a directory
+$(DEPDIR):
+	@mkdir -p $@
+
+# Each dependency makefile depends on its corresponding .c file. 
+# | indicates that this rule needs the directory to exist, but it doesn't matter when it was updated.
+$(DEPFILES): $(DEPDIR)/%.d : %.c | $(DEPDIR)
+	@echo '----->' Finding dependencies for $<
+	$(CC) $(DEPFLAGS) $(CFLAGS) $<
+
+# If we're not cleaning, include all the dependency makefiles.
+# If they don't exist, make will use the rules and recipes in this makefile to make them!
+# They will also be remade if the corresponding .c file has changed.
+ifneq ($(CLEAN), clean)
+    include $(DEPFILES)
+endif
+
+$(TARGET): $(OBJS)
+	@echo '----->' Linking $@
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+%.o : %.c ;
+# $(OBJS): %.o : %.c $(HEADERS)
+$(OBJS): %.o : %.c 
+	@echo '----->' Compiling $<
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+.PHONY: clean
+clean:
+	@echo '----->' Cleaning up
+	-rm -vf $(OBJS) $(TARGET)
+	-rm -rvf .deps
+
+.PHONY: check
+check: $(CHECKS)
+
+.PHONY: $(CHECKS)
+$(CHECKS) : check-% : % $(TARGET)
+	@echo '----->' Checking $(TARGET) against $<
+	./$(TARGET) <$<
+
+.PHONY: gdb
+gdb: $(GDBS)
+
+.PHONY: $(GDBS)
+$(GDBS) : gdb-% : % $(TARGET)
+	@echo '----->' Checking $(TARGET) against $< under gdb
+	gdb -quiet ./$(TARGET) -ex "run <$<" -x  autoquit.gdb
+
+.PHONY: valgrind
+valgrind: $(VALGRINDS)
+
+.PHONY: $(VALGRINDS)
+$(VALGRINDS) : valgrind-% : % $(TARGET)
+	@echo '----->' Checking $(TARGET) against $< under valgrind
+	valgrind --quiet --error-exitcode=1 --leak-check=full ./$(TARGET) <$<
+

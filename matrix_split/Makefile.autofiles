@@ -1,0 +1,46 @@
+# This makefile has the problem that changing one header will cause every file to be recompiled :(
+
+# which compiler to use
+CC = gcc
+
+# compiler flags:
+#	-std=c99	chooses C99 standard
+#	-Wall	turns on a lot of warnings
+#	-ftrapv	errors for signed overflow on addition, subtraction, and multiplication
+#	-ggdb	generated debugging symbols for gdb
+CFLAGS = -std=c99 -Wall -ftrapv -ggdb
+
+# link flags:
+#	-lm	lets us use the "m" math library
+LDFLAGS = -lm
+
+# look for all the .c files, we will compile them all into .o files
+SRCS = $(wildcard *.c)
+
+# make a list of the .o files we're going to build by replacing .c in the names of all the .c files with .o
+OBJS = $(patsubst %.c,%.o,$(SRCS))
+
+# look for all the .h files, we will recompile everything if they change
+HEADERS = $(wildcard *.h)
+
+# the name of the executable we want to create
+TARGET = matrix_split
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+$(OBJS): %.o : %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+# an extra target so we can run "make clean" to get rid of all the .o files we made, and the final executable.
+# .PHONY: clean tells make that clean isn't an actual file we can build, this target won't create a file named "clean"
+# clean has no dependencies
+# starting a command with a - ignores any errors it might give.
+# So, if rm fails because the files don't exist, make won't exit with an error.
+.PHONY: clean
+clean:
+	-rm -vf $(OBJS) $(TARGET)
+
+.PHONY: check
+check: $(TARGET)
+	./$(TARGET) <example_input.txt

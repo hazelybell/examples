@@ -1,0 +1,28 @@
+
+# matrix_split will be built if nothing was specified on the make command-line, since it's the first rule in the makefile
+
+# how to build a file named "matrix_split"
+# The first line, which isn't indented, and has a colon is a rule. It specifies what files are needed to build the file before the colon.
+# it uses all the .o files, so if any .o file changes, we'll need to rebuild "matrix_split"
+# The second line is a recipe, it's indented with a TAB. It says what command to use to build the file specified in the rule
+matrix_split : matrix_split.o matrix.o matrix_io.o matrix_ops.o debugging.o
+	gcc --std=c99 -Wall -ftrapv -ggdb -DDEBUG -o matrix_split matrix_split.o matrix.o matrix_io.o matrix_ops.o debugging.o
+
+# how to build a file named "matrix.o"
+# it uses a .c file and a couple .h files, so if the c code or the headers change, it will be rebuilt
+# we have to list all the included headers plus all hte headers that those headers include!
+matrix.o : matrix.c matrix.h debugging.h
+	gcc --std=c99 -Wall -ftrapv -ggdb -DDEBUG -c -o matrix.o matrix.c
+
+matrix_io.o : matrix_io.c matrix_io.h matrix.h debugging.h
+	gcc --std=c99 -Wall -ftrapv -ggdb -DDEBUG -c -o matrix_io.o matrix_io.c
+
+matrix_ops.o : matrix_ops.c matrix_ops.h matrix.h debugging.h
+	gcc --std=c99 -Wall -ftrapv -ggdb -DDEBUG -c -o matrix_ops.o matrix_ops.c
+
+debugging.o : debugging.c debugging.h
+	gcc --std=c99 -Wall -ftrapv -ggdb -DDEBUG -c -o debugging.o debugging.c
+
+matrix_split.o : matrix_split.c matrix.h matrix_io.h matrix_ops.h debugging.h
+	gcc --std=c99 -Wall -ftrapv -ggdb -DDEBUG -c -o matrix_split.o matrix_split.c
+

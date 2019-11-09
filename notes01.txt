@@ -1,0 +1,19 @@
+* C, only at the end intorduce some features of C++
+* C99 
+* Doing lab & assignments on linux machines
+* Labs
+    * CSID/CCID
+    * Demo list/q&a list
+        * 8 minute maximum
+    * Submit your code before demo
+    * no extension no late policy
+* 1 month/assignment
+    * previous solution depends on next solution
+    * purchase solution for 2%
+    * after 24h max 6/7
+        * after 48h max 5/7
+* Collaboration by consultation
+* Week 1&2 available
+* Lab 1 available
+* explain participation in an offense
+* start work as early as possible

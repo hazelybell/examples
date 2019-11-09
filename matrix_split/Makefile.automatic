@@ -1,0 +1,46 @@
+# This makefile has the problem that changing one header will cause every file to be recompiled :(
+
+# which compiler to use
+CC = gcc
+
+# compiler flags:
+#	-std=c99	chooses C99 standard
+#	-Wall	turns on a lot of warnings
+#	-ftrapv	errors for signed overflow on addition, subtraction, and multiplication
+#	-ggdb	generated debugging symbols for gdb
+CFLAGS = -std=c99 -Wall -ftrapv -ggdb
+
+# link flags:
+#	-lm	lets us use the "m" math library
+LDFLAGS = -lm
+
+# look for all the .c files, we will want to turn them into .o files
+SRCS = $(wildcard *.c)
+OBJS = $(patsubst %.c,%.o,$(SRCS))
+HEADERS = $(wildcard *.h)
+
+# adds -DDEBUG to the CFLAGS if we invoked make like "make debug"
+DEBUG := $(filter debug,$(MAKECMDGOALS))
+ifeq ($(DEBUG), debug)
+    CFLAGS += -DDEBUG
+endif
+
+# the name of the executable we want to create
+TARGET = matrix_split
+
+.PHONY: default
+default: $(TARGET)
+
+.PHONY: debug
+debug: default
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+$(OBJS): %.o : %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+.PHONY: clean
+clean:
+	@rm -vf $(OBJS) $(TARGET)
+

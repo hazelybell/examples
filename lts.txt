@@ -1,0 +1,336 @@
+LPS computation ----------
+Sequence: tgctctgaccgtgttgagaatatcgggtttcgggc
+Reversed: cgggctttgggctataagagttgtgccagtctcgt
+LPS length: 21
+LPS: gcttgggttgagttgggttcg
+Is it a palindrome?
+gcttgggttgagttgggttcg
+gcttgggttgagttgggttcg
+Yes.
+Is it a subsequence?
+tgctctgaccgtgttgagaatatcgggtttcgggc
+ gct tg   g gttgag  t t gggtt cg
+Yes.
+LTS computation ----------
+34 remaining
+Initially:
+left_len know hts_len half_tandem_subsequence
+       0   ==       0  <- biggest known
+       1   <=       1 ??? 
+       2   <=       2 ??? 
+       3   <=       3 ??? 
+       4   <=       4 ??? 
+       5   <=       5 ??? 
+       6   <=       6 ??? 
+       7   <=       7 ??? 
+       8   <=       8 ??? 
+       9   <=       9 ??? 
+      10   <=       9 ??? 
+      11   <=      10 ??? 
+      12   <=      11 ??? 
+      13   <=      12 ??? 
+      14   <=      13 ??? 
+      15   <=      13 ??? 
+      16   <=      14 ??? 
+      17   <=      15 ??? 
+      18   <=      16 ??? <- biggest unknown
+      19   <=      16 ??? 
+      20   <=      15 ??? 
+      21   <=      14 ??? 
+      22   <=      13 ??? 
+      23   <=      12 ??? 
+      24   <=      11 ??? 
+      25   <=      10 ??? 
+      26   <=       9 ??? 
+      27   <=       8 ??? 
+      28   <=       7 ??? 
+      29   <=       6 ??? 
+      30   <=       5 ??? 
+      31   <=       4 ??? 
+      32   <=       3 ??? 
+      33   <=       2 ??? 
+      34   <=       1 ??? 
+      35   ==       0  
+LCS computation 0: left_len=18
+Split: tgctctgaccgtgttgag|aatatcgggtttcgggc
+half tandem subsequence length 10
+HTS: ttcgggttgg
+17 had a max of 15 but it is only 1 before 18 which is known to be 10, so 17 can only have a max of 11
+16 had a max of 14 but it is only 2 before 18 which is known to be 10, so 16 can only have a max of 12
+19 had a max of 16 but it is only 1 after 18 which is known to be 10, so 19 can only have a max of 11
+20 had a max of 15 but it is only 2 after 18 which is known to be 10, so 20 can only have a max of 12
+21 had a max of 14 but it is only 3 after 18 which is known to be 10, so 21 can only have a max of 13
+Knowledge propagated to 5 items
+12 remaining
+left_len know hts_len half_tandem_subsequence
+       0   ==       0  
+       1   <=       1  
+       2   <=       2  
+       3   <=       3  
+       4   <=       4  
+       5   <=       5  
+       6   <=       6  
+       7   <=       7  
+       8   <=       8  
+       9   <=       9  
+      10   <=       9  
+      11   <=      10  
+      12   <=      11 ??? 
+      13   <=      12 ??? 
+      14   <=      13 ??? <- biggest unknown
+      15   <=      13 ??? 
+      16   <=      12 ??? 
+      17   <=      11 ??? 
+      18   ==      10 ttcgggttgg <- biggest known
+      19   <=      11 ??? 
+      20   <=      12 ??? 
+      21   <=      13 ??? 
+      22   <=      13 ??? 
+      23   <=      12 ??? 
+      24   <=      11 ??? 
+      25   <=      10  
+      26   <=       9  
+      27   <=       8  
+      28   <=       7  
+      29   <=       6  
+      30   <=       5  
+      31   <=       4  
+      32   <=       3  
+      33   <=       2  
+      34   <=       1  
+      35   ==       0  
+LCS computation 1: left_len=14
+Split: tgctctgaccgtgt|tgagaatatcgggtttcgggc
+half tandem subsequence length 8
+HTS: tgttcgtg
+13 had a max of 12 but it is only 1 before 14 which is known to be 8, so 13 can only have a max of 9
+12 had a max of 11 but it is only 2 before 14 which is known to be 8, so 12 can only have a max of 10
+15 had a max of 13 but it is only 1 after 14 which is known to be 8, so 15 can only have a max of 9
+16 had a max of 12 but it is only 2 after 14 which is known to be 8, so 16 can only have a max of 10
+Knowledge propagated to 4 items
+7 remaining
+left_len know hts_len half_tandem_subsequence
+       0   ==       0  
+       1   <=       1  
+       2   <=       2  
+       3   <=       3  
+       4   <=       4  
+       5   <=       5  
+       6   <=       6  
+       7   <=       7  
+       8   <=       8  
+       9   <=       9  
+      10   <=       9  
+      11   <=      10  
+      12   <=      10  
+      13   <=       9  
+      14   ==       8 tgttcgtg 
+      15   <=       9  
+      16   <=      10  
+      17   <=      11 ??? 
+      18   ==      10 ttcgggttgg <- biggest known
+      19   <=      11 ??? 
+      20   <=      12 ??? 
+      21   <=      13 ??? <- biggest unknown
+      22   <=      13 ??? 
+      23   <=      12 ??? 
+      24   <=      11 ??? 
+      25   <=      10  
+      26   <=       9  
+      27   <=       8  
+      28   <=       7  
+      29   <=       6  
+      30   <=       5  
+      31   <=       4  
+      32   <=       3  
+      33   <=       2  
+      34   <=       1  
+      35   ==       0  
+LCS computation 2: left_len=21
+Split: tgctctgaccgtgttgagaat|atcgggtttcgggc
+half tandem subsequence length 9
+HTS: tcgggttgg
+20 had a max of 12 but it is only 1 before 21 which is known to be 9, so 20 can only have a max of 10
+22 had a max of 13 but it is only 1 after 21 which is known to be 9, so 22 can only have a max of 10
+23 had a max of 12 but it is only 2 after 21 which is known to be 9, so 23 can only have a max of 11
+Knowledge propagated to 3 items
+4 remaining
+left_len know hts_len half_tandem_subsequence
+       0   ==       0  
+       1   <=       1  
+       2   <=       2  
+       3   <=       3  
+       4   <=       4  
+       5   <=       5  
+       6   <=       6  
+       7   <=       7  
+       8   <=       8  
+       9   <=       9  
+      10   <=       9  
+      11   <=      10  
+      12   <=      10  
+      13   <=       9  
+      14   ==       8 tgttcgtg 
+      15   <=       9  
+      16   <=      10  
+      17   <=      11 ??? <- biggest unknown
+      18   ==      10 ttcgggttgg <- biggest known
+      19   <=      11 ??? 
+      20   <=      10  
+      21   ==       9 tcgggttgg 
+      22   <=      10  
+      23   <=      11 ??? 
+      24   <=      11 ??? 
+      25   <=      10  
+      26   <=       9  
+      27   <=       8  
+      28   <=       7  
+      29   <=       6  
+      30   <=       5  
+      31   <=       4  
+      32   <=       3  
+      33   <=       2  
+      34   <=       1  
+      35   ==       0  
+LCS computation 3: left_len=17
+Split: tgctctgaccgtgttga|gaatatcgggtttcgggc
+half tandem subsequence length 9
+HTS: gttcggttg
+Knowledge propagated to 0 items
+3 remaining
+left_len know hts_len half_tandem_subsequence
+       0   ==       0  
+       1   <=       1  
+       2   <=       2  
+       3   <=       3  
+       4   <=       4  
+       5   <=       5  
+       6   <=       6  
+       7   <=       7  
+       8   <=       8  
+       9   <=       9  
+      10   <=       9  
+      11   <=      10  
+      12   <=      10  
+      13   <=       9  
+      14   ==       8 tgttcgtg 
+      15   <=       9  
+      16   <=      10  
+      17   ==       9 gttcggttg 
+      18   ==      10 ttcgggttgg <- biggest known
+      19   <=      11 ??? <- biggest unknown
+      20   <=      10  
+      21   ==       9 tcgggttgg 
+      22   <=      10  
+      23   <=      11 ??? 
+      24   <=      11 ??? 
+      25   <=      10  
+      26   <=       9  
+      27   <=       8  
+      28   <=       7  
+      29   <=       6  
+      30   <=       5  
+      31   <=       4  
+      32   <=       3  
+      33   <=       2  
+      34   <=       1  
+      35   ==       0  
+LCS computation 4: left_len=19
+Split: tgctctgaccgtgttgaga|atatcgggtttcgggc
+half tandem subsequence length 10
+HTS: ttcgggttgg
+Knowledge propagated to 0 items
+2 remaining
+left_len know hts_len half_tandem_subsequence
+       0   ==       0  
+       1   <=       1  
+       2   <=       2  
+       3   <=       3  
+       4   <=       4  
+       5   <=       5  
+       6   <=       6  
+       7   <=       7  
+       8   <=       8  
+       9   <=       9  
+      10   <=       9  
+      11   <=      10  
+      12   <=      10  
+      13   <=       9  
+      14   ==       8 tgttcgtg 
+      15   <=       9  
+      16   <=      10  
+      17   ==       9 gttcggttg 
+      18   ==      10 ttcgggttgg <- biggest known
+      19   ==      10 ttcgggttgg 
+      20   <=      10  
+      21   ==       9 tcgggttgg 
+      22   <=      10  
+      23   <=      11 ??? <- biggest unknown
+      24   <=      11 ??? 
+      25   <=      10  
+      26   <=       9  
+      27   <=       8  
+      28   <=       7  
+      29   <=       6  
+      30   <=       5  
+      31   <=       4  
+      32   <=       3  
+      33   <=       2  
+      34   <=       1  
+      35   ==       0  
+LCS computation 5: left_len=23
+Split: tgctctgaccgtgttgagaatat|cgggtttcgggc
+half tandem subsequence length 8
+HTS: cgggttgg
+22 had a max of 10 but it is only 1 before 23 which is known to be 8, so 22 can only have a max of 9
+24 had a max of 11 but it is only 1 after 23 which is known to be 8, so 24 can only have a max of 9
+Knowledge propagated to 2 items
+0 remaining
+left_len know hts_len half_tandem_subsequence
+       0   ==       0  
+       1   <=       1  
+       2   <=       2  
+       3   <=       3  
+       4   <=       4  
+       5   <=       5  
+       6   <=       6  
+       7   <=       7  
+       8   <=       8  
+       9   <=       9  
+      10   <=       9  
+      11   <=      10  
+      12   <=      10  
+      13   <=       9  
+      14   ==       8 tgttcgtg 
+      15   <=       9  
+      16   <=      10  
+      17   ==       9 gttcggttg 
+      18   ==      10 ttcgggttgg <- lts
+      19   ==      10 ttcgggttgg 
+      20   <=      10  
+      21   ==       9 tcgggttgg 
+      22   <=       9  
+      23   ==       8 cgggttgg 
+      24   <=       9  
+      25   <=      10  
+      26   <=       9  
+      27   <=       8  
+      28   <=       7  
+      29   <=       6  
+      30   <=       5  
+      31   <=       4  
+      32   <=       3  
+      33   <=       2  
+      34   <=       1  
+      35   ==       0  
+Computations: 6
+Best split: 18
+Best length: 10
+Longest half-tandem subsequence: ttcgggttgg
+Is it a subsequence?
+tgctctgaccgtgttgagaatatcgggtttcgggc
+t  tc g   g gttg g  t tcgggtt  gg
+Yes.
+Sequence: tgctctgaccgtgttgagaatatcgggtttcgggc
+LPS: gcttgggttgagttgggttcg
+LTS: ttcgggttggttcgggttgg

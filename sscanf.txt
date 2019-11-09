@@ -1,0 +1,12 @@
+1.0 0.000
+line = "1.0 0.000"
+value = 1.0
+chars_consumed = 3 (because we read "1.0")
+line += chars_consumed
+line = " 0.000"
+value = 0.0
+chars_consumed = 6
+line += chars_consumed
+line = ""
+next sscanf will return 0 because there's no %lf (double) left in the string to convert
+that causes our loop to exit

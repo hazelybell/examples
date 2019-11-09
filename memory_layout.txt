@@ -1,0 +1,11 @@
+There are 3 parts to memory:
+
+* Memory to hold your program itself
+     * Includes literals
+* Stack
+     * Local variables and VLAs
+     * Parameters to functions
+     * Local static length arrays
+* Heap
+     * extra memory your program can use for some purpose
+     * BUT we have to ask the OS for heap memory
