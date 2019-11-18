@@ -13,6 +13,7 @@ int in(struct cursor *c) {
 size_t ij(struct cursor *c) {
     if (!in(c)) abort();
     return c->row * c->m->cols + c->col;
+    
 }
 
 double set_element(
