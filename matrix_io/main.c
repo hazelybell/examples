@@ -6,7 +6,6 @@
 #include "debugging.h"
 #include "checked_io.h"
 
-
 static const char * argv0;
 
 void print_usage() {
