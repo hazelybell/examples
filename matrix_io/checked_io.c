@@ -28,9 +28,7 @@ FILE *checked_fopen_write(const char * path) {
     return r;
 }
 
-char* checked_getline(
-    FILE *stream
-        ) {
+char* checked_getline(FILE *stream) {
     char *line = NULL;
     size_t n = 0;
     ssize_t r = getline(&line, &n, stream);

@@ -1,5 +1,7 @@
 #include <string.h>
 
+#define DEBUG
+
 #include "matrix.h"
 #include "matrix_io.h"
 #include "matrix_ops.h"
@@ -9,10 +11,20 @@
 static const char * argv0;
 
 void print_usage() {
+    fprintf(stderr, "\n");
     fprintf(stderr,
-    "Usage: %s [-i inputfilename]"
+    "Usage: %s [-i inputfilename] "
     "[-o outputfilename]\n",
     argv0);
+    fprintf(stderr,
+            "%20s   %s\n",
+            "-i inputfilename",
+            "Specify an optional file to read the two matrices from.");
+    fprintf(stderr,
+            "%20s   %s\n",
+            "-o outputfilename",
+            "Specify an optional file to write the product matrix to.");
+    fprintf(stderr, "\n");
 }
 
 void error_usage() {
@@ -42,6 +54,9 @@ int main(int argc, char **argv) {
                 error_usage();
             }
             outputfile = checked_fopen_write(argv[i]);
+        } else {
+            fprintf(stderr, "Unrecognized argument: %s\n", argv[i]);
+            error_usage();
         }
     }
     if (inputfile == stdin) {
