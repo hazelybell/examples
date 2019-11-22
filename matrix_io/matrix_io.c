@@ -1,29 +1,11 @@
 #include "matrix_io.h"
 #include "debugging.h"
+#include "checked_io.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-static char *read_line() {
-    char * line = NULL;
-    int r = scanf("%m[^\n]", &line);
-    if (r == EOF) {
-        return new_empty_string();
-    }
-    char c = 0;
-    int nl = scanf("%c", &c);
-    if (r == 1 && nl == 1 && c == '\n') {
-        return line;
-    }
-    if (r == 0 && nl == 1 && c == '\n') {
-        // this must be an empty line
-        return new_empty_string();
-    }
-    printf("%d %d %d\n", r, nl, c);
-    abort();
-    return NULL;
-}
-
+// static functions and variables are NOT accessible from other functions, and should not be included in the header
 static size_t count_line(char * line) {
     double value;
     size_t count = 0;
@@ -48,13 +30,15 @@ static void read_row(char * line,
     }
 }
 
-struct matrix read_matrix() {
+struct matrix read_matrix(FILE *stream) {
     size_t rows = 0;
     size_t cols = 0;
     char **lines = NULL;
     while (1) {
-        char *line = read_line();
-        if (line == NULL) abort();
+        char *line = checked_getline(stream);
+        if (line == NULL) {
+            break;
+        }
         size_t line_cols = count_line(line);
         if (line_cols == 0) {
             free(line);
@@ -118,7 +102,10 @@ static size_t get_longest(struct matrix *m) {
     return longest;
 }
 
-void print_matrix(struct matrix *m) {
+void print_matrix(
+    struct matrix *m,
+    FILE *stream
+) {
     size_t len = get_longest(m);
     char format[11];
     size_t printed = snprintf(format, 10, "%%%zuf ", len);
@@ -134,9 +121,9 @@ void print_matrix(struct matrix *m) {
             right(&c)
         ) {
             double elt = get_element(&c);
-            printf(format, elt);
+            fprintf(stream, format, elt);
         }
-        printf("\b\n");
+        fprintf(stream, "\b\n");
         c.col = 0;
     }
 }

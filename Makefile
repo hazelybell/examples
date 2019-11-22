@@ -1,3 +1,4 @@
+MAKEFLAGS += -r
 CC = gcc
 CFLAGS = --std=c99 -Wall -ftrapv -ggdb
 LDFLAGS = -lm
@@ -14,7 +15,7 @@ all: $(EXES) $(SUBDIRS)
 
 .PHONY: $(SUBDIRS)
 $(SUBDIRS):
-	$(MAKE) -C $@ $(MAKECMDGOALS)
+	@$(MAKE) -C $@ $(MAKECMDGOALS)
 
 .PHONY: debug
 debug: all
