@@ -1,0 +1,73 @@
+# -r removes "implicit rules" which are rules and recipes that make makes automatically without you writing them in the makefile at all. 
+MAKEFLAGS += -r
+
+# This makefile has the problem that changing one header will cause every file to be recompiled :(
+
+# which compiler to use
+CC = gcc
+
+# compiler flags:
+#	-std=c99	chooses C99 standard
+#	-Wall	turns on a lot of warnings
+#	-ftrapv	errors for signed overflow on addition, subtraction, and multiplication
+#	-ggdb	generated debugging symbols for gdb
+CFLAGS = -std=c99 -pedantic -Wall -Wextra -Werror -ftrapv -ggdb
+
+# link flags:
+#	-lm	lets us use the "m" math library
+LDFLAGS = -lm
+
+# look for all the .c files, we will compile them all into .o files
+SRCS = $(wildcard *.c)
+
+# make a list of the .o files we're going to build by replacing .c in the names of all the .c files with .o
+OBJS = $(patsubst %.c,%.o,$(SRCS))
+
+# look for all the .h files, we will recompile everything if they change
+HEADERS = $(wildcard *.h)
+
+# the name of the executable we want to create
+TARGET = mst
+
+# adds -DDEBUG to the CFLAGS if we invoked make like "make debug"
+# MAKECMDGOALS is a list of all the things we asked make to make for us on the command line
+# Then we use filter to see if "debug" is one of those goals.
+# If it is, then DEBUG will be "debug".
+# So then we add -DDEBUG to our CFLAGS
+DEBUG := $(filter debug,$(MAKECMDGOALS))
+ifeq ($(DEBUG), debug)
+    CFLAGS += -DDEBUG
+endif
+
+# this is the first rule, so if we run make without arguments, make will make all, which requires the target.
+# But all isn't actually a file that will get made
+all: $(TARGET)
+.PHONY: all
+
+# Now we can also run make with debug as an argument nad it will make a debug version of our code, with DEBUG preprocessor macro defined
+# This has the same effect of just running make with no arguments, except that CFLAGS is changed!
+# We can also just build one file with debugging enabled, by doing something like "make debug matrix_io.o"
+.PHONY: debug
+debug: all
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+$(OBJS): %.o : %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+.PHONY: clean
+clean:
+	@rm -vf $(OBJS) $(TARGET)
+
+.PHONY: check
+check: $(TARGET)
+	./$(TARGET) <input1.txt
+	./$(TARGET) <input2.txt
+	./$(TARGET) -i input1.txt
+	./$(TARGET) -i input2.txt
+
+.PHONY: valgrind
+valgrind: $(TARGET)
+	valgrind ./$(TARGET) <input1.txt
+	valgrind ./$(TARGET) <input2.txt

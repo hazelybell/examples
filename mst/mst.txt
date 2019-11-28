@@ -1,0 +1,93 @@
+Prim's algorithm:
+
+Step 1:
+Vertices: 1
+Edges: none
+
+Step 2:
+Options: (1,5,$3), (1,6,$12), (1,2,$9)
+Vertex: 1, 5
+Edges: (1,5,$3)
+
+Step 3:
+Options: (1,2,$9), (5,6,$19), (1,6,$12), (5,3,$8)
+Vertex: 1, 5, 3
+Edges: (1,5,$3) (5,3,$8)
+
+Step 4:
+Options: (3,2,$2), (3,4,$15), (3,7,$13), (5,6,$19), (1,2,$9), (1,6,$12)
+Vertex: 1, 5, 3, 2
+Edges: (1,5,$3) (5,3,$8) (3,2,$2)
+
+Step 5:
+Options: (3,4,$15), (3,7,$13), (5,6,$19), (1,6,$12), (2,6,$17), (2,7,$14)
+Vertex: 1, 5, 3, 2, 6
+Edges: (1,5,$3) (5,3,$8) (3,2,$2) (1,6,$12)
+
+Step 6:
+Options: (3,4,$15), (3,7,$13), (2,7,$14), (6, 7, $18)
+Vertex: 1, 5, 3, 2, 6, 7
+Edges: (1,5,$3) (5,3,$8) (3,2,$2) (1,6,$12)
+ (3,7,$13)
+
+Step 7:
+Options: (3,4,$15), (7,4,$4)
+Vertex: 1, 5, 3, 2, 6, 7, 4
+Edges: (1,5,$3) (5,3,$8) (3,2,$2) (1,6,$12)
+ (3,7,$13) (7,4,$4)
+
+
+Prim's algorithm Mark II:
+
+Step 1:
+Vertices: 1
+Edges: none
+
+Step 2:
+Options: (1,5,$3), (1,6,$12), (1,2,$9)
+Vertex: 1, 5
+Edges: (1,5,$3)
+
+Step 3:
+Options: (1,2,$9), (1,6,$12), (5,3,$8)
+Vertex: 1, 5, 3
+Edges: (1,5,$3) (5,3,$8)
+
+Step 4:
+Options: (3,2,$2), (3,4,$15), (3,7,$13), (1,6,$12)
+Vertex: 1, 5, 3, 2
+Edges: (1,5,$3) (5,3,$8) (3,2,$2)
+
+
+Step 5:
+Options: (3,4,$15), (3,7,$13), (5,6,$19), (1,6,$12)
+Vertex: 1, 5, 3, 2, 6
+Edges: (1,5,$3) (5,3,$8) (3,2,$2) (1,6,$12)
+
+Step 6:
+Options: (3,4,$15), (3,7,$13)
+Vertex: 1, 5, 3, 2, 6, 7
+Edges: (1,5,$3) (5,3,$8) (3,2,$2) (1,6,$12)
+ (3,7,$13)
+
+Step 7:
+Options: (7,4,$4)
+Vertex: 1, 5, 3, 2, 6, 7, 4
+Edges: (1,5,$3) (5,3,$8) (3,2,$2) (1,6,$12)
+ (3,7,$13) (7,4,$4)
+
+
+Kruskal's Algorithm:
+
+(2,3,$2)  pick (we don't have a way to get from 2 to 3 yet)
+(1,5,$3)  pick (we don't have a way to get from 1 to 5 yet)
+(7,4,$4)  pick (we don't have a way to get from 2 to 3 yet)
+(3,5,$8)  pick (we don't have a way to get from 3 to 5 yet)
+(1,2,$9)  skip (we can already get from 1 to 2 by going 1 5 3 2!)
+(1,6,$12) pick (we don't have a way to get from 1 to 6 yet)
+(3,7,$13) pick (we don't have a way to get from 3 to 7 yet)
+(2,7,$14) we 'R' done (we have 7 vertices so we only need 6 edges to make a tree, and we already have 6 edges!)
+(3,4,$15) 
+(2,6,$17)
+(7,6,$18)
+(6,5,$19)
