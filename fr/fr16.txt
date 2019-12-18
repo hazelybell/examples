@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+int main() {
+    /* ??? */ = "constant data";
+    /* ??? */ = malloc((N+1) * sizeof(char));
+    free(/* ??? */);
+    return 0;
+}
+
+// Can you fix this program so that main defines
+// two automatic, local variables, one which is a
+// a pointer to a constant character,
+// and one which is a constant pointer to a character
+// by replacing the /* ??? */s?
+
