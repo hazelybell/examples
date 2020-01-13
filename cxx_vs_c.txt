@@ -1,0 +1,44 @@
+C++ Vs C
+
+* C++ is a GENERAL-PURPOSE programming language vs C systems programming language
+* C++ building on top of C
+* Super easy to interface C and C++ code
+    * Easy to have a project that's part C and part C++
+* C++ is commonly used for GUI applications
+* C++ added class/object/OOP
+    * Early OOP to become popular
+    * Had a big influence on other OOP languages like Java
+    * add 'new' - allocate a new object
+    * add 'delete' - deallocat an object
+    * added explicit constructors (like python's __init__)
+    * explicit destructors
+    * added multiple inheritance
+    * added polymorphism
+* C++ added overloading
+    * redefine what + operator meant - / *
+    * cout << "Hello world!";
+* C++ added templates
+    * general-purpose datastructures
+    * instead of defining that a stack explicitly holds ints, you can have it hold some unknown
+    * then when you go to use the stack, the code using it specifies what type is actually stored in the stack
+    * Importantly: Standard Template Library (STL)
+* C++ added references
+    * kind of like pointers but different
+    * refereces + polymorphism = dynamic dispatch
+    -> becomes .
+* C++ libraries (e.g. STL) can have things like "smart pointers"
+    * with templates + destructors + operator overloading
+    * allows for automatic deallocation
+    
+* "kitchen sink" programming language
+    * C++ can be easier than C to write a simple program in
+    * C++ can also be vastly more difficult than C
+* gdb works with C++
+* valgrind works with C++
+* .cpp or .cxx files and .h
+* You still have the C preprocessor in C++
+    
+    
+a = []
+b = a
+a.append("1")

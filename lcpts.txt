@@ -1,0 +1,27 @@
+There's more than one way to do it!
+
+-> check the lecture notes for the 4-D method
+
+Hazel's Approach:
+
+-> Modify your LCS routine to return *every* CS instead of just *one* LCS
+
+!!!! We have to include CS's that aren't
+a subsequence of an LCS but we don't have to include any sequences that are
+subsequences of a longer sequence !!!!
+
+Harrison Fah's example: 0120 and 0012
+
+00 is the LCPS/LCTS but 012 is the only LCS.
+
+
+-> We need a function that will check if one seq is a subsequence of another sequence quickly (this is straightforward)
+
+-> Then you have a list of LCSs of the two input sequences, which are all the same length
+
+-> Any other CS of the two input sequences
+must be a subsequence of one of our LCSs
+
+-> Apply LPS/LTS to each LCS in our list
+
+-> Pick a longest one
