@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    const char * s = "string";
+    char * t = malloc(/* ??? */);
+    strcpy(/* ??? */);
+    printf("%s\n", t);
+    return 0;
+}
+
+/* Can you fix this program so that it allocates
+ * enough space for t to contain a copy of s and then 
+ * copies s into t?
+ */

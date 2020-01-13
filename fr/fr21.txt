@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+#define N 5
+
+void print_int_pointer(int * p) {
+    printf("p=%p *p=%d\n", p, *p);
+}
+
+int main() {
+    int i = 5;
+    int j = 10;
+    print_int_pointer(&(i+j));
+    return 0;
+}
+
+/* This program doesn't compile. gcc gives the error:
+
+fr21.c:12:23: error: lvalue required as unary ‘&’ 
+operand
+     print_int_pointer(&(i+j));
+
+Can you explain what the problem is?
+Can you explain what the error means?
+Can you fix the program so that it calls 
+print_int_pointer with a pointer to an int with value 
+15?
+*/

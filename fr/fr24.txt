@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+#define N 5
+
+void f(int * n) {
+    printf("N = %d\n", *n);
+}
+
+
+int main() {
+    f(&N);
+    return 0;
+}
+
+/* This program doesn't compile. Why not?
+ * Can you figure out why it won't compile without 
+ * compiling it and checking the error?
+ * Can you fix it so that main passes a pointer to the 
+ * value of N to the function f?
+ */
+
