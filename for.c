@@ -2,45 +2,47 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(int argc, char ** argv) {
-    int a;
-    for (a = 0; a < 5; a++) {
-        printf("%d\n", a);
+#define COUNT_TO 5
+
+int main() {
+    int counter;
+    for (counter = 0; counter < COUNT_TO; counter++) {
+        printf("%d\n", counter);
     }
     printf("---\n");
-    a = 0;
-    while (a < 5) {
-        printf("%d\n", a);
-        a++;
+    counter = 0;
+    while (counter < COUNT_TO) {
+        printf("%d\n", counter);
+        counter++;
     }
     printf("---\n");
-    printf("%d\n", a);
+    printf("%d\n", counter);
     // for (
     //  something that runs once ;
-    //  a conditional that's checked 
+    //  counter conditional that's checked 
     //      each time;
     //  something that happens each time ;
     // )
     printf("---\n");
-    a = 0;
-    for (; a < 5; a++) {
-        printf("%d\n", a);
+    counter = 0;
+    for (; counter < COUNT_TO; counter++) {
+        printf("%d\n", counter);
     }
     printf("---\n");
-    a = 0;
-    for (; a < 5; a++) {
-        printf("%d\n", a);
-        a = 5;
+    counter = 0;
+    for (; counter < COUNT_TO; counter++) {
+        printf("%d\n", counter);
+        counter = COUNT_TO;
     }
     printf("---\n");
-    printf("%d\n", a);
+    printf("%d\n", counter);
     printf("---\n");
-    a = 0;
-    for (; a < 5;) {
-        printf("%d\n", a);
-        a = 5;
+    counter = 0;
+    for (; counter < COUNT_TO;) {
+        printf("%d\n", counter);
+        counter = COUNT_TO;
     }
     printf("---\n");
-    printf("%d\n", a);
+    printf("%d\n", counter);
     return 0;
 }
