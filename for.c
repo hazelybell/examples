@@ -5,11 +5,14 @@
 #define COUNT_TO 5
 
 int main() {
-    int counter;
-    for (counter = 0; counter < COUNT_TO; counter++) {
+    // like for range(0,5):
+    for (int counter = 0; counter < COUNT_TO; counter++) {
         printf("%d\n", counter);
     }
-    printf("---\n");
+    // I cannot do this:
+    // printf("%d\n", counter);
+    printf("Same as:\n");
+    int counter;
     counter = 0;
     while (counter < COUNT_TO) {
         printf("%d\n", counter);
@@ -23,24 +26,23 @@ int main() {
     //      each time;
     //  something that happens each time ;
     // )
-    printf("---\n");
+    printf("--- Don't do this:\n");
     counter = 0;
     for (; counter < COUNT_TO; counter++) {
         printf("%d\n", counter);
     }
-    printf("---\n");
-    counter = 0;
-    for (; counter < COUNT_TO; counter++) {
+    printf("--- Definitely don't do this:\n");
+    for (counter = 0; counter < COUNT_TO; counter++) {
         printf("%d\n", counter);
         counter = COUNT_TO;
     }
     printf("---\n");
     printf("%d\n", counter);
-    printf("---\n");
+    printf("--- Don't do this either:\n");
     counter = 0;
     for (; counter < COUNT_TO;) {
         printf("%d\n", counter);
-        counter = COUNT_TO;
+        counter++;
     }
     printf("---\n");
     printf("%d\n", counter);

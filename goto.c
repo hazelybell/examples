@@ -22,10 +22,9 @@ int main() {
             default:
                 printf("error!\n");
                 goto done;
-                break;
         }
     }
     done:
-    printf("\n");
+    printf("done \n");
     return 0;
 }

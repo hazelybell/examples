@@ -3,7 +3,7 @@
 #include <string.h>
 
 int main() {
-    int count_to = 4;
+    int count_to = 5;
     // Counting from 0 to count_to-1 (3)
     for (int counter = 0; counter < count_to; counter++) {
         printf("%d ", counter);

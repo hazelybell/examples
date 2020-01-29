@@ -10,7 +10,7 @@ int main() {
         printf("Eh?\n");
         abort();
     }
-    switch(number) {
+    switch (number) {
         case 0:
             printf("zero\n");
             break;
@@ -19,11 +19,14 @@ int main() {
             break;
         case 2:
             printf("two\n");
+            break;
         case 3:
             printf("two or three\n");
             break;
         default:
             printf("not a number from 0-3\n");
+            break;
     }
+    // comes here after break
     return 0;
 }
