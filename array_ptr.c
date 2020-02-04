@@ -64,7 +64,10 @@ int main() {
     
     printf("\n");
     // how far away (in ints) is int_p2 from int_p?
+    int_p = &array[0];
     int *int_p2 = &array[2];
+    printf("int_p  = %p\n", int_p);
+    printf("int_p2 = %p\n", int_p2);
     printf(" int_p2 -  int_p = %zu\n", int_p2 - int_p);
     
     // Casting pointers... avoid this!
@@ -89,7 +92,10 @@ int main() {
     // Example: re interpreting the memory storing a floating-point value as
     // a signed 32-bit integer!
     float hundred = 100.0;
+    printf("hundred = %d\n", (int32_t) hundred);
     printf("hundred = %d\n", *( (int32_t *) &hundred));
+    
+    // 100 * 256^0 + 0 * 256^1 + 0 * 256^2 + 0 * 256^3
 }
 
 

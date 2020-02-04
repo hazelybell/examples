@@ -4,13 +4,11 @@
 
 int main() {
     int  *var1 [LENGTH]; // what's this?
-    // an array of 5 pointers to integers
     int (*var2)[LENGTH]; // what's this?
-    // a pointer to an array of 5 integers
 
     printf("sizeof(var1)=%zu\n", sizeof(var1));
     printf("sizeof(var2)=%zu\n", sizeof(var2));
-    
+
     // array 1 is an array of 5 pointers to ints
     // array 2 is a pointer to an array of 5 ints
     
@@ -30,12 +28,32 @@ int main() {
         &array3[0],
         &array4[0]
     };
+    // exactly the same as:
+//     int *a_o_p[5] = {
+//         array0,
+//         array1,
+//         array2,
+//         array3,
+//         array4
+//     };
+    int *a_o_p2[5] = {
+        array0,
+        array0,
+        array0,
+        array0,
+        NULL
+    };
     
     printf("\n");
     // Now, accessing a_o_p looks just like accessing a 5x5 2-D array!
     for (size_t row = 0; row < LENGTH; row++) {
         for (size_t col = 0; col < LENGTH; col++) {
             printf("%03d ", a_o_p[row][col]);
+            // if it were a 2d array:
+            // get the int at ptr + columns * row * sizeof(int) + col * sizeof(int)
+            // but what it really means is
+            // get the pointer at a_o_p + row * sizeof(a pointer) 
+            // get the int thats col * sizeof(int) after that pointer
         }
         printf("\n");
     }

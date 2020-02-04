@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#DEFINE SIZE 10
+#define SIZE 10
 
 // This function tries to print out the int which is at address 0 in memory...
 // Don't do this!
@@ -8,6 +8,7 @@ void dereference_null() {
     printf("\ndereference null\n");
     int *a_pointer = NULL;
     printf(" a_pointer = %p\n", (void *) a_pointer);
+    printf(" a_pointer = %zu\n", (size_t) a_pointer);
     printf("*a_pointer = %d\n", *a_pointer);
 }
 
@@ -20,11 +21,17 @@ void dereference_uninit() {
     printf("*a_pointer = %d\n", *a_pointer);
 }
 
+// this is totally fine because pointer doesn't point to an automatic local variable that was declared in my_function
+int *my_function(int *pointer) {
+    return pointer;
+}
+
 // This function returns a pointer to an "automatic" local variable...
 // Don't do this!
 int *return_pointer_to_local() {
     int local_int = 100;
     int *pointer = &local_int;
+    pointer = my_function(pointer);
     // when we return we give up the memory we allocated for "local_int"!
     return pointer;
 }
@@ -40,6 +47,7 @@ int do_things() {
 
 int main() {
 //     dereference_null();
+    dereference_uninit();
     int * pointer = return_pointer_to_local();
     printf("*pointer = %d\n", *pointer);
     do_things();
@@ -47,26 +55,28 @@ int main() {
     
     // You can't get a pointer to some things...
     // This won't compile:
-    // &(do_things());
+//     &(do_things());
     
     // We can't do this for the same reason...
-    // &10;
+//     &10;
     
     // This one is actually exactly the same as the one above...
-    // &SIZE;
+//     &SIZE;
     
     // You have to make memory to store the value to get a pointer to it!
     int result = do_things();
-    printf("  &result = %p\n", (void *) a);
+    printf("  &result = %p\n", (void *) &result);
     
     // This won't compile either. Same reason.
 //     &(&result);
+    int seven = 7;
+    // &(seven + 1);
+//     printf("seven + 1 = %d\n", seven + 1);
     // You have to make memory to store the pointer to get a pointer to it!
     int * result_p = &result;
     printf("&result_p = %p\n", (void *) &result_p);
     int **result_pp = &result_p;
     int ***result_ppp = &result_pp;
-    
     return 0;
 }
 

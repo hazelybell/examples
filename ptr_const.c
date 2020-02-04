@@ -63,7 +63,7 @@ int main() {
     printf("%s\n", wrong);
     
     // Because it doesn't protect us from:
-//     wrong[0] = 'D';
+    wrong[0] = 'D';
     // what happens if you uncomment the above line?
     
     // This might be better:
