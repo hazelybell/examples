@@ -4,7 +4,9 @@
 
 int main() {
     int  *var1 [LENGTH]; // what's this?
+    // an array of 5 pointers to integers
     int (*var2)[LENGTH]; // what's this?
+    // a pointer to an array of 5 integers
 
     printf("sizeof(var1)=%zu\n", sizeof(var1));
     printf("sizeof(var2)=%zu\n", sizeof(var2));

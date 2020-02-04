@@ -31,7 +31,7 @@ void array_memory(int array[][COLS]) { // <-- same arguments
 }
 
 int main() {
-    int array[ROWS][COLS] = { 0 };
+    int array[ROWS][COLS] = { { 0 } };
     
     print_array(array);
     

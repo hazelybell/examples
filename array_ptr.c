@@ -10,7 +10,7 @@ void use_p(int * int_p) {
         printf("  int_p[%zu]   = %d\n", idx, int_p[idx]);
         printf(" &int_p[%zu]   = %p\n", idx, (void *) &int_p[idx]);
         printf("  int_p + %zu  = %p\n", idx, (void *) (&int_p[0] + idx));
-        printf("*(int_p + %zu) = %d\n", idx, *(&int_p[0] + idx));
+        printf("*(int_p + %zu) = %d\n", idx, *(int_p + idx));
     }
 }
 
@@ -90,7 +90,6 @@ int main() {
     // a signed 32-bit integer!
     float hundred = 100.0;
     printf("hundred = %d\n", *( (int32_t *) &hundred));
-    
 }
 
 
